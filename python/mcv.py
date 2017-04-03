@@ -1,4 +1,5 @@
 
+import platform
 import ctypes
 from numpy.ctypeslib import ndpointer
 import numpy as np
@@ -6,7 +7,21 @@ import numpy as np
 
 __all__ = ['gas_blur']
 
-__lib = ctypes.cdll.LoadLibrary("../build/libmcv.dylib")
+def _load_lib():
+    lib_fname = "libmcv"
+    sys_name = platform.system()
+    if sys_name == "Linux":
+        lib_fname += ".so"
+    elif sys_name == "Darwin":
+        lib_fname += ".dylib"
+    else:
+        raise EnvironmentError("Unkonw system of platform: %s" % sys_name)
+
+    lib_fname = "../build/" + lib_fname
+    print("load library form: %s" % lib_fname)
+    return ctypes.cdll.LoadLibrary(lib_fname)
+
+__Lib = _load_lib()
 
 _gas_blur_func = __lib.c_gas_blur
 _gas_blur_func.restype = None
