@@ -35,15 +35,15 @@ namespace mcv {
                 if (x + i < 0 && y + j < 0)
                     p = img.at(0, 0, c);
                 else if (x + i < 0 && y + j >= 0)
-                    p = img.at(0, y, c);
+                    p = img.at(0, y+j, c);
                 else if (x + i > 0 && j + j < 0)
-                    p = img.at(x, 0, c);
+                    p = img.at(x+i, 0, c);
                 else if (x + i >= img.n_rows && y + j >= img.n_cols)
                     p = img.at(-1, -1, c);
                 else if (x + i >= img.n_rows && y + j < img.n_cols)
-                    p = img.at(-1, y, c);
+                    p = img.at(-1, y+j, c);
                 else if (x + i < img.n_rows && y + j >= img.n_cols)
-                    p = img.at(x, -1, c);
+                    p = img.at(x+i, -1, c);
                 else
                     p = img.at(x+i, y+j, c);
 
