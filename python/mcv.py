@@ -27,13 +27,18 @@ _gas_blur_func = __lib.c_gas_blur
 _gas_blur_func.restype = None
 _gas_blur_func.argtypes = [
     ndpointer(np.float32, ndim=3, flags="C_CONTIGUOUS"),
+    #ctypes.c_void_p,
     ctypes.c_size_t,
     ctypes.c_size_t,
     ctypes.c_size_t,
     ctypes.c_float,
     ndpointer(np.float32, ndim=3, flags="C_CONTIGUOUS")]
+    # ctypes.c_void_p,]
 
 def gas_blur(img, sigma):
+    if img.flags['C_CONTIGUOUS'] != True:
+        raise ValueError("numpy array should be C_CONTIGUOUS")
+
     if len(img.shape) == 3:
         n_channels = img.shape[2]
     else:

@@ -8,3 +8,7 @@ file(GLOB SRC_FILES "src/*.cpp")
 
 add_library(mcv SHARED ${SRC_FILES})
 target_link_libraries(mcv c m)
+
+file(GLOB TEST_FILES "test/test_gas.cpp")
+add_executable(test ${TEST_FILES})
+target_link_libraries(test mcv)

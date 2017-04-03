@@ -68,3 +68,7 @@ build/
 *.dSYM/
 *.su
 
+### Python
+*.pyc
+
+
