@@ -33,6 +33,7 @@ namespace  mcv {
 
         Matrix(int _rows, int _cols, int _channels = 1) {
             set_size(_rows, _cols, _channels);
+            is_alloc = false;
             allocate();
         }
 
