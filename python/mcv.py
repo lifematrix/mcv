@@ -21,7 +21,7 @@ def _load_lib():
     print("load library form: %s" % lib_fname)
     return ctypes.cdll.LoadLibrary(lib_fname)
 
-__Lib = _load_lib()
+__lib = _load_lib()
 
 _gas_blur_func = __lib.c_gas_blur
 _gas_blur_func.restype = None
@@ -39,7 +39,8 @@ def gas_blur(img, sigma):
     else:
         n_channels = 1
 
+    print("n_channels: %d" % n_channels)
     dest = np.zeros(img.shape, dtype=np.float32)
-    _gas_blur_func(img, img.shape[0], img.shape[1], n_channels)
+    _gas_blur_func(img, img.shape[0], img.shape[1], n_channels, sigma, dest)
 
     return dest

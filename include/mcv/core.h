@@ -6,6 +6,8 @@
 #define MCV_CORE_H
 
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 namespace  mcv {
     template<typename T>
@@ -15,6 +17,7 @@ namespace  mcv {
         int n_channels;
         int n_size;
         T *data;
+        bool is_alloc;
 
     public:
         Matrix() {
@@ -23,32 +26,37 @@ namespace  mcv {
             n_channels = 0;
             n_size = 0;
             data = NULL;
+            is_alloc = false;
+
         }
 
-        Matrix(int n_rows, int n_cols, int n_channels = 1) {
-            set_size(n_rows, n_cols, n_channels);
+        Matrix(int rows, int cols, int channels = 1) {
+            set_size(rows, cols, channels);
             allocate();
         }
 
         ~Matrix() {
-            if (this->data != NULL) {
+            if (this->data != NULL && is_alloc ) {
                 free(this->data);
                 this->data = NULL;
             }
         }
 
-        void set_size(int n_rows, int n_cols, int n_channels) {
-            n_rows = n_rows;
-            n_cols = n_cols;
-            n_channels = n_channels;
+        void set_size(int rows, int cols, int channels) {
+            n_rows = rows;
+            n_cols = cols;
+            n_channels = channels;
 
             n_size = this->n_rows * this->n_cols * this->n_channels;
+            printf("size: %d\n", n_size); fflush(stdout);
         }
 
         void allocate() {
-            if (this->data != NULL) {
+            if (this->data != NULL && is_alloc)
                 free(this->data);
-                this->data = malloc(n_size * sizeof(T));
+            if (n_size > 0) {
+                this->data = (T *) malloc(n_size * sizeof(T));
+                is_alloc = true;
             }
         }
 
@@ -64,14 +72,14 @@ namespace  mcv {
         }
 
         // inline const T &operator[](size_t x, size_t y, size_t c)
-        inline const T& at(size_t x, size_t y, size_t c) {
+        inline T* at(size_t x, size_t y, size_t c) {
             int index = n_channels * (x * this->n_cols + y) + c;
-            return &data[index];
+            return data+index;
         }
 
-        inline const T& at(size_t x, size_t y) {
+        inline T* at(size_t x, size_t y) {
             int index = x * this->n_cols + y;
-            return &data[index];
+            return data+index;
         }
 
     };

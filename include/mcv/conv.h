@@ -17,8 +17,7 @@ namespace mcv {
     template<typename T>
     T conv_op(Matrix<T> &img, int x, int y, int c, Matrix<float> &kernal);
 
-    template<typename T>
-    void gas_blur(Matrix <T> &img, double sigma, Matrix<T> &dest);
+    void gas_blur(Matrix<float> &img, float sigma, Matrix<float> &dest);
 }
 
 #endif //MCV_CONV_H
