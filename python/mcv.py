@@ -26,13 +26,13 @@ __lib = _load_lib()
 _gas_blur_func = __lib.c_gas_blur
 _gas_blur_func.restype = None
 _gas_blur_func.argtypes = [
-    ndpointer(np.float32, ndim=3, flags="C_CONTIGUOUS"),
+    ndpointer(np.float32, flags="C_CONTIGUOUS"),
     #ctypes.c_void_p,
     ctypes.c_size_t,
     ctypes.c_size_t,
     ctypes.c_size_t,
     ctypes.c_float,
-    ndpointer(np.float32, ndim=3, flags="C_CONTIGUOUS")]
+    ndpointer(np.float32, flags="C_CONTIGUOUS")]
     # ctypes.c_void_p,]
 
 def gas_blur(img, sigma):

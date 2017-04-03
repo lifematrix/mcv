@@ -37,7 +37,6 @@ namespace  mcv {
         }
 
         ~Matrix() {
-            printf("deconstructed, is_alloc: %d\n", is_alloc);
             if (this->data != NULL && is_alloc ) {
                 free(this->data);
                 this->data = NULL;
@@ -50,7 +49,6 @@ namespace  mcv {
             n_channels = _channels;
 
             n_size = this->n_rows * this->n_cols * this->n_channels;
-            printf("size: %d\n", n_size); fflush(stdout);
         }
 
         void allocate() {
@@ -83,9 +81,6 @@ namespace  mcv {
                 c = n_channels - 1;
 
             int index = x * n_cols * n_channels + y * n_channels + c;
-            if (index >= n_size) {
-                printf("n_size: %d, index: %d, %d, %d, %d\n", n_size, index, x, y, c); fflush(stdout);
-            }
 
             return data[index];
         }

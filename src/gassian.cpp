@@ -17,7 +17,6 @@ namespace mcv {
         int b = int(ceil(3 * sigma));
         Matrix<T> kernel(2 * b + 1, 2 * b + 1);
 
-        printf("kernel: %d\n", kernel.n_rows); fflush(stdout);
         for (int i = -b; i < b + 1; i++)
             for (int j = -b; j < b + 1; j++)
                 kernel.at(i+b, j+b) = gas_func(i, j, sigma);
@@ -48,12 +47,10 @@ namespace mcv {
                 else
                     p = img.at(x+i, y+j, c);
 
-                // printf("p: %10.8f\n", p); fflush(stdout);
                 s += p * kernel.at(i, j);
             }
         }
 
-        // printf("%10.8f\n", s); fflush(stdout);
         return s;
     }
 
@@ -65,7 +62,6 @@ namespace mcv {
             return;
 
         int b = (kernel.n_rows - 1) / 2;
-        // printf("b: %d\n", b); fflush(stdout);
 
         printf("(%d, %d, %d)\n", img.n_rows, img.n_cols, img.n_channels); fflush(stdout);
         for (int x = 0; x < img.n_rows; x++)
