@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Non-Source Folder
 build/
+.idea/
 
 ### C++ template
 # Compiled Object files
